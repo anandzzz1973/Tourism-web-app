@@ -1,0 +1,46 @@
+
+<%- include("../partials/header.ejs") %>
+
+<div class="container-fluid">
+    <div class="row">
+         <div class="col-md-4" style="border: 5px solid rgb(55, 118, 155);">
+             <h1><%= data.name %></h1>
+             <p>
+              <%= data.description %>
+             </p>
+         </div>
+         <div class="col-md-8" style="border: 5px solid rgb(55, 118, 155);">
+              <div class="container">
+                <br>
+                    <img src="<%= data.image %>" class="rounded mx-auto d-block" alt="...">
+                    <br>
+                    <h5 style="float: right;">Contributed by:- <%= data.author.username %></h5>
+                    <br>
+                    <br>
+                    <% if(data.author.id.equals(curuser._id)) { %>
+                      <p><a href="/campground/<%= data._id %>/edit" class="btn btn-danger btn-lg btn-block">Edit</a></p>
+                      <!-- <br> -->
+                      <form action="/campground/<%= data._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-primary btn-lg btn-block">Delete</button>
+                      </form>
+                      <% } %>
+                      <br>
+                      <p><a href="/campground/<%= data._id %>/comment/new" class="btn btn-secondary btn-lg btn-block">comments</a></p>
+
+                      <!-- <p><a href="/campground/<%= data._id %>?_method=DELETE" class="btn btn-secondary btn-lg btn-block">Delete</a></p> -->
+
+               </div>
+               <div class="container">
+                <div class="jumbotron">
+                   <% data.comment.forEach(function(blah){ %>                    
+                        <p><h5 style="float: left;"><%=blah.text %></h5>  <h5 style="float: right;"><%= blah.author.username %></h5></p>
+                        <!-- <hr>                     -->
+                        <br>
+                   <% }) %>   
+                  </div>  
+               </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../partials/footer.ejs") %>
